@@ -1,0 +1,10 @@
+.ScoreCard {
+  margin-bottom: 1rem;
+}
+.ScoreSeparator {
+  padding-top: 1rem;
+}
+.Score {
+  font-size: 1.25rem;
+  font-weight: 500;
+}

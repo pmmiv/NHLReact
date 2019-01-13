@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import ScoreCard from './ScoreCard';
 
 class ScoreBoard extends Component {
@@ -57,9 +56,7 @@ class ScoreBoard extends Component {
           <div className="row">
             {games.map(game => (
               <div className="col-xs-12 col-md-6" key={game.gamePk}>
-                <Link to={'/game/'+game.gamePk}>
-                  <ScoreCard game={game}/>
-                </Link>
+                <ScoreCard game={game}/>
               </div>
             ))}
           </div>

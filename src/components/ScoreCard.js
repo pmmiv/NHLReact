@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import '../styles/ScoreCard.css';
 
 class ScoreCard extends Component {
@@ -19,7 +20,7 @@ class ScoreCard extends Component {
           </div>
           <div className="row">
             <div className="col-12 text-muted">
-              {this.props.game.status.detailedState}
+              {this.props.game.status.detailedState} | <Link to={'/game/'+this.props.game.gamePk}>Box Score</Link>
             </div>
           </div>
         </div>

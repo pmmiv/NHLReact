@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Link } from "react-router-dom";
-import './App.css';
+import { Link } from "react-router-dom";
 import ScoreCard from './ScoreCard';
 
 class ScoreBoard extends Component {
@@ -9,7 +8,8 @@ class ScoreBoard extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      games: []
+      games: [],
+      scheduleDate: null
     }
   }
 
@@ -21,20 +21,22 @@ class ScoreBoard extends Component {
         (result) => {
           this.setState({
             isLoaded: true,
-            games: result.dates && result.dates[0] ? result.dates[0].games : []
+            games: result.dates && result.dates[0] ? result.dates[0].games : [],
+            scheduleDate: result.dates && result.dates[0] ? new Date(result.dates[0].date + "T12:00:00") : null
           });
         },
         (error) => {
           this.setState({
             isLoaded: true,
-            error
+            error,
+            scheduleDate: null
           });
         }
       )
   }
 
   render() {
-    const { error, isLoaded, games } = this.state;
+    const { error, isLoaded, games, scheduleDate } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -44,11 +46,18 @@ class ScoreBoard extends Component {
         <div>
           <div className="jumbotron text-center">
             <h1>NHL Scoreboard</h1>
+            <h2 className="text-muted">
+              {new Intl.DateTimeFormat('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: '2-digit'
+              }).format(scheduleDate)}
+            </h2>
           </div>
           <div className="row">
             {games.map(game => (
               <div className="col-xs-12 col-md-6" key={game.gamePk}>
-                <Link to="/game/{game.gamePk}">
+                <Link to={'/game/'+game.gamePk}>
                   <ScoreCard game={game}/>
                 </Link>
               </div>

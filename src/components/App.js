@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../styles/App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ScoreBoard from './ScoreBoard';
 import BoxScore from './BoxScore';
@@ -23,7 +23,7 @@ class App extends Component {
             </div>
           </nav>
           <div className="container main-container">
-            <Route path="/" component={ScoreBoard} />
+            <Route exact path="/" component={ScoreBoard} />
             <Route path="/game/:id" component={BoxScore} />
           </div>
         </div>

@@ -44,7 +44,7 @@ class BoxScore extends Component {
         <div className="BoxScore">
           <div>
             <div className="row">
-              <div className="col-6">
+              <div className="col-lg-6">
                 <div className="TeamName">
                   <h1>
                     {boxScore.teams.away.team.name}
@@ -54,7 +54,7 @@ class BoxScore extends Component {
                 <SkaterTable team={boxScore.teams.away} />
                 <GoalieTable team={boxScore.teams.away} />
               </div>
-              <div className="col-6">
+              <div className="col-lg-6">
                 <div className="TeamName">
                   <h1>
                     {boxScore.teams.home.team.name}

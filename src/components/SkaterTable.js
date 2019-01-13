@@ -17,15 +17,22 @@ class SkaterTable extends Component {
       let thisPlayer = this.props.team.players[key]
 
       if (thisPlayer.stats && thisPlayer.stats.skaterStats) {
+        thisPlayer.stats.skaterStats.points = thisPlayer.stats.skaterStats.goals + thisPlayer.stats.skaterStats.assists
         players.push(thisPlayer)
       }
 
       return true // suppresses warning
     })
 
-    // sort by time on ice
+    // sort by total points, goals, time on ice
     players.sort(function(a,b) {
-      return parseFloat(b.stats.skaterStats.timeOnIce) - parseFloat(a.stats.skaterStats.timeOnIce)
+      if(a.stats.skaterStats.points !== b.stats.skaterStats.points) {
+        return b.stats.skaterStats.points - a.stats.skaterStats.points
+      } else if(a.stats.skaterStats.goals !== b.stats.skaterStats.goals) {
+        return b.stats.skaterStats.goals - a.stats.skaterStats.goals
+      } else {
+        return parseFloat(b.stats.skaterStats.timeOnIce) - parseFloat(a.stats.skaterStats.timeOnIce)
+      }
     })
 
     this.setState({

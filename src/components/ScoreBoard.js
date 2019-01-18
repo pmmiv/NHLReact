@@ -3,7 +3,7 @@ import ScoreCard from './ScoreCard';
 
 class ScoreBoard extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       error: null,
       isLoaded: false,
@@ -22,24 +22,25 @@ class ScoreBoard extends Component {
             isLoaded: true,
             games: result.dates && result.dates[0] ? result.dates[0].games : [],
             scheduleDate: result.dates && result.dates[0] ? new Date(result.dates[0].date + "T12:00:00") : null
-          });
+          })
         },
         (error) => {
           this.setState({
             isLoaded: true,
             error,
             scheduleDate: null
-          });
+          })
         }
       )
   }
 
   render() {
-    const { error, isLoaded, games, scheduleDate } = this.state;
+    const { error, isLoaded, games, scheduleDate } = this.state
+
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <div>Loading...</div>
     } else if (games && games.length){
       return (
         <div>

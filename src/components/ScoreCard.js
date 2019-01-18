@@ -4,7 +4,7 @@ import '../styles/ScoreCard.css';
 
 class ScoreCard extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       error: null,
       isLoaded: false,
@@ -25,9 +25,9 @@ class ScoreCard extends Component {
 
           this.setState({
             isLoaded: true,
-            period: lastPlay.about.period,
-            periodTimeRemaining: lastPlay.about.periodTimeRemaining
-          });
+            period: lastPlay ? lastPlay.about.period : null,
+            periodTimeRemaining: lastPlay ? lastPlay.about.periodTimeRemaining : null
+          })
         },
         (error) => {
           this.setState({
@@ -35,7 +35,7 @@ class ScoreCard extends Component {
             error,
             period: null,
             periodTimeRemaining: null
-          });
+          })
         }
       )
   }

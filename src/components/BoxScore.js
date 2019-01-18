@@ -5,7 +5,7 @@ import GoalieTable from './GoalieTable';
 
 class BoxScore extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       error: null,
       isLoaded: false,
@@ -22,23 +22,24 @@ class BoxScore extends Component {
           this.setState({
             isLoaded: true,
             boxScore: result
-          });
+          })
         },
         (error) => {
           this.setState({
             isLoaded: true,
             error
-          });
+          })
         }
       )
   }
 
   render() {
-    const { error, isLoaded, boxScore } = this.state;
+    const { error, isLoaded, boxScore } = this.state
+
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <div>Loading...</div>
     } else if (boxScore){
       return (
         <div className="BoxScore">

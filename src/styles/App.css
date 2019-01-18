@@ -34,3 +34,9 @@
 .main-container {
   margin-top: 2rem;
 }
+
+.app-spinner {
+  color: #ccc;
+  font-size: 3rem;
+  margin-top: 3rem;
+}

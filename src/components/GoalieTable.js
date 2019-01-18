@@ -38,7 +38,7 @@ class GoalieTable extends Component {
     const { isLoaded, players } = this.state;
     if(!isLoaded) {
       return (
-        <div>Loading...</div>
+        <span></span>
       )
     } else {
       return (

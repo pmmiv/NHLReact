@@ -59,7 +59,7 @@ class ScoreCard extends Component {
 
     if(!isLoaded) {
       return (
-        <span>Loading...</span>
+        <span></span>
       )
     } else if(error) {
       return (

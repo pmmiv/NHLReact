@@ -3,6 +3,12 @@ import '../styles/BoxScore.css';
 import SkaterTable from './SkaterTable';
 import GoalieTable from './GoalieTable';
 
+// Font Awesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
+library.add(faCircleNotch)
+
 class BoxScore extends Component {
   constructor(props) {
     super(props)
@@ -39,7 +45,11 @@ class BoxScore extends Component {
     if (error) {
       return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
-      return <div>Loading...</div>
+      return (
+        <div className="text-center">
+          <FontAwesomeIcon icon="circle-notch" className="fa-spin app-spinner"/>
+        </div>
+      )
     } else if (boxScore){
       return (
         <div className="BoxScore">

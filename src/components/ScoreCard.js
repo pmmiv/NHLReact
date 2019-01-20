@@ -9,15 +9,16 @@ class ScoreCard extends Component {
       error: null,
       isLoaded: false,
       period: null,
-      periodTime: null
+      periodTimeRemaining: null,
+      gameFeed: null
     }
   }
 
   componentDidMount() {
-    let game = this.props.game
+    let gameId = this.props.gameId
 
     // Live feed data contains period and time remaining
-    fetch("http://statsapi.web.nhl.com"+game.link)
+    fetch("http://statsapi.web.nhl.com/api/v1/game/"+gameId+"/feed/live")
       .then(res => res.json())
       .then(
         (result) => {
@@ -26,7 +27,8 @@ class ScoreCard extends Component {
           this.setState({
             isLoaded: true,
             period: lastPlay ? lastPlay.about.period : null,
-            periodTimeRemaining: lastPlay ? lastPlay.about.periodTimeRemaining : null
+            periodTimeRemaining: lastPlay ? lastPlay.about.periodTimeRemaining : null,
+            gameFeed: result
           })
         },
         (error) => {
@@ -34,27 +36,35 @@ class ScoreCard extends Component {
             isLoaded: true,
             error,
             period: null,
-            periodTimeRemaining: null
+            periodTimeRemaining: null,
+            gameFeed: null
           })
         }
       )
   }
 
   render() {
-    const { error, isLoaded, period, periodTimeRemaining } = this.state
-    const { game } = this.props
+    const { error, isLoaded, period, periodTimeRemaining, gameFeed } = this.state
 
-    let boxScoreLink = (
-      <span>| <Link to={'/game/'+game.gamePk}>Box Score</Link></span>
-    )
+    let boxScoreLink, gameState = null
 
-    let gameState = (
-      <span>{game.status.detailedState}</span>
-    )
-    if(period && periodTimeRemaining && game.status.detailedState !== 'Final') {
-      gameState = (
-        <span>P{period} - {periodTimeRemaining}</span>
-      )
+    if(gameFeed) {
+      // display box score link only if game is in progress / final
+      if(gameFeed.gameData.status.detailedState !== 'Scheduled') {
+        boxScoreLink = (
+          <span>| <Link to={'/game/'+gameFeed.gamePk}>Box Score</Link></span>
+        )
+      }
+
+      if(period && periodTimeRemaining && gameFeed.gameData.status.detailedState !== 'Final') {
+        gameState = (
+          <span>P{period} - {periodTimeRemaining}</span>
+        )
+      } else {
+        gameState = (
+          <span>{gameFeed.gameData.status.detailedState}</span>
+        )
+      }
     }
 
     if(!isLoaded) {
@@ -77,18 +87,18 @@ class ScoreCard extends Component {
           <div className="card-body text-center">
             <div className="row">
               <div className="col-5">
-                <p className="card-text">{game.teams.away.team.name}</p>
-                <p className="card-text Score">{game.teams.away.score}</p>
+                <p className="card-text">{gameFeed.gameData.teams.away.name}</p>
+                <p className="card-text Score">{gameFeed.liveData.boxscore.teams.away.teamStats.teamSkaterStats.goals}</p>
               </div>
               <div className="col-2 ScoreSeparator">@</div>
               <div className="col-5">
-                <p className="card-text">{game.teams.home.team.name}</p>
-                <p className="card-text Score">{game.teams.home.score}</p>
+                <p className="card-text">{gameFeed.gameData.teams.home.name}</p>
+                <p className="card-text Score">{gameFeed.liveData.boxscore.teams.home.teamStats.teamSkaterStats.goals}</p>
               </div>
             </div>
             <div className="row">
               <div className="col-12 text-muted">
-                {gameState}&nbsp;{game.status.detailedState !== 'Scheduled' ? boxScoreLink : ''}
+                {gameState}&nbsp;{boxScoreLink}
               </div>
             </div>
           </div>

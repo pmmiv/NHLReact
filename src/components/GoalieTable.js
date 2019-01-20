@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/StatsTable.css';
 
 class GoalieTable extends Component {
   constructor(props) {
@@ -30,47 +31,52 @@ class GoalieTable extends Component {
 
     this.setState({
       isLoaded: true,
-      players: players
+      players: players,
+      team: this.props.team
     });
   }
 
   render() {
-    const { isLoaded, players } = this.state;
+    const { isLoaded, players, team } = this.state
+
     if(!isLoaded) {
       return (
         <span></span>
       )
     } else {
       return (
-        <table className="table table-striped table-hover">
-          <thead className="thead-dark">
-            <tr>
-              <th>Goalie</th>
-              <th>Saves</th>
-              <th>SV%</th>
-              <th>TOI</th>
-            </tr>
-          </thead>
-          <tbody>
-            {players.map(player => (
+        <div className="StatsTable">
+          <h4>{team.team.name} Goalies</h4>
+          <table className="table table-striped table-hover">
+            <thead className="thead-light">
               <tr>
-                <td>
-                  {player.person.fullName}
-                </td>
-                <td>
-                  {player.stats.goalieStats.saves}
-                </td>
-                <td>
-                  {player.stats.goalieStats.savePercentage ? parseFloat(Math.round(player.stats.goalieStats.savePercentage*100)/10000).toFixed(3) : '-'}
-                </td>
-                <td>
-                  {player.stats.goalieStats.timeOnIce}
-                </td>
+                <th>Goalie</th>
+                <th>Saves</th>
+                <th>SV%</th>
+                <th>TOI</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      );
+            </thead>
+            <tbody>
+              {players.map(player => (
+                <tr>
+                  <td>
+                    {player.person.fullName}
+                  </td>
+                  <td>
+                    {player.stats.goalieStats.saves}
+                  </td>
+                  <td>
+                    {player.stats.goalieStats.savePercentage ? parseFloat(Math.round(player.stats.goalieStats.savePercentage*100)/10000).toFixed(3) : '-'}
+                  </td>
+                  <td>
+                    {player.stats.goalieStats.timeOnIce}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )
     }
   }
 }

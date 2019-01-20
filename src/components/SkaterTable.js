@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../styles/StatsTable.css';
 
 class SkaterTable extends Component {
   constructor(props) {
@@ -37,47 +38,52 @@ class SkaterTable extends Component {
 
     this.setState({
       isLoaded: true,
-      players: players
+      players: players,
+      team: this.props.team
     });
   }
 
   render() {
-    const { isLoaded, players } = this.state;
+    const { isLoaded, players, team } = this.state
+
     if(!isLoaded) {
       return (
         <span></span>
       )
     } else {
       return (
-        <table className="table table-striped table-hover">
-          <thead className="thead-dark">
-            <tr>
-              <th>Skater</th>
-              <th>Goals</th>
-              <th>Assists</th>
-              <th>TOI</th>
-            </tr>
-          </thead>
-          <tbody>
-            {players.map(player => (
+        <div className="StatsTable">
+          <h4>{team.team.name} Skaters</h4>
+          <table className="table table-striped table-hover">
+            <thead className="thead-light">
               <tr>
-                <td>
-                  {player.person.fullName}
-                </td>
-                <td>
-                  {player.stats.skaterStats.goals}
-                </td>
-                <td>
-                  {player.stats.skaterStats.assists}
-                </td>
-                <td>
-                  {player.stats.skaterStats.timeOnIce}
-                </td>
+                <th>Skater</th>
+                <th>Goals</th>
+                <th>Assists</th>
+                <th>TOI</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      );
+            </thead>
+            <tbody>
+              {players.map(player => (
+                <tr>
+                  <td>
+                    {player.person.fullName}
+                  </td>
+                  <td>
+                    {player.stats.skaterStats.goals}
+                  </td>
+                  <td>
+                    {player.stats.skaterStats.assists}
+                  </td>
+                  <td>
+                    {player.stats.skaterStats.timeOnIce}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )
     }
   }
 }

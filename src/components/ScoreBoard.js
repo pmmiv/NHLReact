@@ -67,7 +67,7 @@ class ScoreBoard extends Component {
           <div className="row">
             {games.map(game => (
               <div className="col-xs-12 col-md-6" key={game.gamePk}>
-                <ScoreCard game={game}/>
+                <ScoreCard gameId={game.gamePk}/>
               </div>
             ))}
           </div>

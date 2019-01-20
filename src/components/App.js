@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../styles/App.css';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ScoreBoard from './ScoreBoard';
-import BoxScore from './BoxScore';
+import GameStats from './GameStats';
 
 class App extends Component {
   render() {
@@ -24,7 +24,7 @@ class App extends Component {
           </nav>
           <div className="container main-container">
             <Route exact path="/" component={ScoreBoard} />
-            <Route path="/game/:id" component={BoxScore} />
+            <Route path="/game/:id" component={GameStats} />
           </div>
         </div>
       </Router>

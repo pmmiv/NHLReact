@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styles/BoxScore.css';
+import '../styles/GameStats.css';
 import SkaterTable from './SkaterTable';
 import GoalieTable from './GoalieTable';
 import LineScore from './LineScore';
@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleNotch } from '@fortawesome/free-solid-svg-icons'
 library.add(faCircleNotch)
 
-class BoxScore extends Component {
+class GameStats extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -69,7 +69,7 @@ class BoxScore extends Component {
       )
     } else if (boxScore){
       return (
-        <div className="BoxScore">
+        <div className="GameStats">
           <div className="jumbotron text-center">
             <h1>{boxScore.teams.away.team.name} @ {boxScore.teams.home.team.name}</h1>
             <h2 className="text-muted">
@@ -89,7 +89,7 @@ class BoxScore extends Component {
             </div>
             <div className="row">
               <div className="col-12">
-                <h3>Box Score</h3>
+                <h3>Team Stats</h3>
               </div>
               <div className="col-lg-6">
                 <SkaterTable team={boxScore.teams.away} />
@@ -108,4 +108,4 @@ class BoxScore extends Component {
   }
 }
 
-export default BoxScore;
+export default GameStats;

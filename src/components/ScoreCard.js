@@ -52,7 +52,7 @@ class ScoreCard extends Component {
       // display box score link only if game is in progress / final
       if(gameFeed.gameData.status.detailedState !== 'Scheduled') {
         boxScoreLink = (
-          <span>| <Link to={'/game/'+gameFeed.gamePk}>Box Score</Link></span>
+          <span>| <Link to={'/game/'+gameFeed.gamePk}>Game Stats</Link></span>
         )
       }
 

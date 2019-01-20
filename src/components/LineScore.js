@@ -21,11 +21,15 @@ class LineScore extends Component {
       .then(res => res.json())
       .then(
         (result) => {
+          let emptyPeriods = []
+          for(var i=result.liveData.linescore.periods.length+1; i<=3; i++) {
+            emptyPeriods.push(i)
+          }
           this.setState({
             isLoaded: true,
             gameFeed: result,
             lineScore: result.liveData.linescore,
-            emptyPeriods: 3 - result.liveData.linescore.periods.length
+            emptyPeriods: emptyPeriods
           })
         },
         (error) => {
@@ -59,13 +63,15 @@ class LineScore extends Component {
           <table className="table">
             <thead className="thead-light">
               <tr>
-                <th className="text-left">P{lineScore.currentPeriod} - {lineScore.currentPeriodTimeRemaining}</th>
+                <th className="text-left">
+                  {lineScore.currentPeriod ? 'P'+ lineScore.currentPeriod + ' - ' + lineScore.currentPeriodTimeRemaining : 'Game Start'}
+                </th>
                 {lineScore.periods.map(period => (
                   <th className="text-center">{period.num}</th>
                 ))}
-                {emptyPeriods > 0 ? [Array(emptyPeriods)].map((el, i) => (
-                  <th className="text-center">{3-i}</th>
-                )) : null}
+                {emptyPeriods.map(p => (
+                  <th className="text-center">{p}</th>
+                ))}
                 <th className="text-center">T</th>
               </tr>
             </thead>
@@ -75,9 +81,9 @@ class LineScore extends Component {
                 {lineScore.periods.map(period => (
                   <td className="text-center" width="50px">{period.away.goals}</td>
                 ))}
-                {emptyPeriods > 0 ? [Array(emptyPeriods)].map((el, i) => (
+                {emptyPeriods.map(p => (
                   <td className="text-center" width="50px">-</td>
-                )) : null}
+                ))}
                 <td className="text-center" width="50px"><strong>{gameFeed.liveData.boxscore.teams.away.teamStats.teamSkaterStats.goals}</strong></td>
               </tr>
               <tr>
@@ -85,9 +91,9 @@ class LineScore extends Component {
                 {lineScore.periods.map(period => (
                   <td className="text-center" width="50px">{period.home.goals}</td>
                 ))}
-                {emptyPeriods > 0 ? [Array(emptyPeriods)].map((el, i) => (
+                {emptyPeriods.map(p => (
                   <td className="text-center" width="50px">-</td>
-                )) : null}
+                ))}
                 <td className="text-center" width="50px"><strong>{gameFeed.liveData.boxscore.teams.home.teamStats.teamSkaterStats.goals}</strong></td>
               </tr>
             </tbody>

@@ -3,6 +3,8 @@ import '../styles/GameStats.css';
 import SkaterTable from './SkaterTable';
 import GoalieTable from './GoalieTable';
 import LineScore from './LineScore';
+import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
+import classnames from 'classnames';
 
 // Font Awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -17,7 +19,16 @@ class GameStats extends Component {
       error: null,
       isLoaded: false,
       boxScore: null,
-      gameTime: null
+      gameTime: null,
+      activeTab: 'home'
+    }
+  }
+
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({
+        activeTab: tab
+      })
     }
   }
 
@@ -83,28 +94,49 @@ class GameStats extends Component {
           <div>
             <div className="row">
               <div className="col-lg-6">
-                <h3>Line Score</h3>
+                <h3>Box</h3>
                 <LineScore gameId={this.props.match.params.id}/>
               </div>
             </div>
             <div className="row">
-              <div className="col-12">
+              <div className="col-lg-6">
                 <h3>Team Stats</h3>
-              </div>
-              <div className="col-lg-6">
-                <SkaterTable team={boxScore.teams.away} />
-                <GoalieTable team={boxScore.teams.away} />
-              </div>
-              <div className="col-lg-6">
-                <SkaterTable team={boxScore.teams.home} />
-                <GoalieTable team={boxScore.teams.home} />
+                  <Nav pills fill>
+                    <NavItem>
+                      <NavLink
+                        className={classnames({ active: this.state.activeTab === 'away' })}
+                        onClick={() => { this.toggle('away'); }}
+                        href="#"
+                      >
+                        {boxScore.teams.away.team.name}
+                      </NavLink>
+                    </NavItem>
+                    <NavItem>
+                      <NavLink
+                        className={classnames({ active: this.state.activeTab === 'home' })}
+                        onClick={() => { this.toggle('home'); }}
+                        href="#"
+                      >
+                        {boxScore.teams.home.team.name}
+                      </NavLink>
+                    </NavItem>
+                  </Nav>
+                  <TabContent activeTab={this.state.activeTab}>
+                    <TabPane tabId="away">
+                      <SkaterTable team={boxScore.teams.away} />
+                      <GoalieTable team={boxScore.teams.away} />
+                    </TabPane>
+                    <TabPane tabId="home">
+                      <SkaterTable team={boxScore.teams.home} />
+                      <GoalieTable team={boxScore.teams.home} />
+                    </TabPane>
+                  </TabContent>
               </div>
             </div>
           </div>
         </div>
-      );
+      )
     }
-
   }
 }
 

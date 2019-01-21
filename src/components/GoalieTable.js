@@ -31,13 +31,12 @@ class GoalieTable extends Component {
 
     this.setState({
       isLoaded: true,
-      players: players,
-      team: this.props.team
-    });
+      players: players
+    })
   }
 
   render() {
-    const { isLoaded, players, team } = this.state
+    const { isLoaded, players } = this.state
 
     if(!isLoaded) {
       return (
@@ -46,7 +45,6 @@ class GoalieTable extends Component {
     } else {
       return (
         <div className="StatsTable">
-          <h4>{team.team.name} Goalies</h4>
           <table className="table table-striped table-hover">
             <thead className="thead-light">
               <tr>

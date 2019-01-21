@@ -23,13 +23,13 @@ class GameStats extends Component {
 
   componentDidMount() {
     // Load the box score
-    fetch("http://statsapi.web.nhl.com/api/v1/game/"+this.props.match.params.id+"/boxscore")
+    fetch("https://statsapi.web.nhl.com/api/v1/game/"+this.props.match.params.id+"/boxscore")
       .then(res => res.json())
       .then(
         (boxResult) => {
 
           // live feed contains the game time
-          fetch("http://statsapi.web.nhl.com/api/v1/game/"+this.props.match.params.id+"/feed/live")
+          fetch("https://statsapi.web.nhl.com/api/v1/game/"+this.props.match.params.id+"/feed/live")
             .then(res2 => res2.json())
             .then(
               (feedResult) => {

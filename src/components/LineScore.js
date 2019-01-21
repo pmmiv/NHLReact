@@ -17,7 +17,7 @@ class LineScore extends Component {
     let gameId = this.props.gameId
 
     // Live feed data contains period and time remaining
-    fetch("http://statsapi.web.nhl.com/api/v1/game/"+gameId+"/feed/live")
+    fetch("https://statsapi.web.nhl.com/api/v1/game/"+gameId+"/feed/live")
       .then(res => res.json())
       .then(
         (result) => {

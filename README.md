@@ -1,5 +1,9 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Hosted
+
+This application is hosted on Firebase here: [https://nhlreact-f4708.firebaseapp.com/](https://nhlreact-f4708.firebaseapp.com/)
+
 ## Available Scripts
 
 In the project directory, you can run:

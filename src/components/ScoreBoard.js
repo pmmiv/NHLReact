@@ -20,7 +20,7 @@ class ScoreBoard extends Component {
 
   componentDidMount() {
     // Load today's games from NHL schedule endpoint
-    fetch("http://statsapi.web.nhl.com/api/v1/schedule")
+    fetch("https://statsapi.web.nhl.com/api/v1/schedule")
       .then(res => res.json())
       .then(
         (result) => {
